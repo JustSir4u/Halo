@@ -36,7 +36,7 @@ public class Statisztika
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Hiba az adatbázis elérésekor: {ex.Message}");
+            Console.Error.WriteLine($"Hiba az adatbázis elérésekor: {ex}");
             Environment.Exit(1);
         }
     }
