@@ -1,4 +1,4 @@
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 
 namespace DanceStudioDesktop;
 
@@ -8,10 +8,10 @@ public class Statisztika
 
     public Statisztika(string databasePath)
     {
-        BeolvasCourses(databasePath);
+        BeolvasKurzusok(databasePath);
     }
 
-    private void BeolvasCourses(string databasePath)
+    private void BeolvasKurzusok(string databasePath)
     {
         var connectionString = new SqliteConnectionStringBuilder { DataSource = databasePath }.ToString();
 
@@ -41,7 +41,7 @@ public class Statisztika
         }
     }
 
-    public void FeladatokVegrehajtasa()
+    public void RunStatistics()
     {
         CsoportosKurzusokSzama();
         LeghosszabbKurzusAdatai();
@@ -59,7 +59,7 @@ public class Statisztika
 
     private void LeghosszabbKurzusAdatai()
     {
-        var longestCourse = courses.OrderByDescending(c => c.Length).FirstOrDefault();
+        var longestCourse = courses.MaxBy(c => c.Length);
 
         if (longestCourse is null)
         {
