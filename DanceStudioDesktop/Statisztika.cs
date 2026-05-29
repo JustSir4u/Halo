@@ -59,13 +59,17 @@ public class Statisztika
 
     private void LeghosszabbKurzusAdatai()
     {
-        var longestCourse = courses.MaxBy(c => c.Length);
-
-        if (longestCourse is null)
+        if (courses.Count == 0)
         {
             Console.WriteLine("Nincs kurzus adat.");
             return;
         }
+
+        var maxLength = courses.Max(c => c.Length);
+        var longestCourse = courses
+            .Where(c => c.Length == maxLength)
+            .OrderBy(c => c.Id)
+            .First();
 
         Console.WriteLine("Leghosszabb kurzus adatai:");
         Console.WriteLine($"Id: {longestCourse.Id}");
@@ -79,6 +83,12 @@ public class Statisztika
     {
         Console.Write("Adjon meg egy kurzus nevet: ");
         var name = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            Console.WriteLine("Nincs ilyen kurzus");
+            return;
+        }
 
         var course = courses.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         if (course is null)
